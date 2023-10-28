@@ -11,7 +11,7 @@ The "I Kanban" web application, built with Flask, offers a hierarchical task man
 Installation 
 Clone the repository to your local machine:
 
-git clone 
+git clone https://github.com/kmohsen11/I-kanban.git
 
 Change into the project directory:
 
