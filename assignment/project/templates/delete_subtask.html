@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Subtask</title>
+</head>
+<body>
+    <h1>Delete Subtask</h1>
+    <p>Are you sure you want to delete the subtask "{{ subtask.title }}"?</p>
+    <form method="POST" action="{{ url_for('main.delete_subtask', subtask_id=subtask.id) }}">
+        {{ form.hidden_tag() }}
+        <button type="submit">Delete Subtask</button>
+        <a href="{{ url_for('main.tasks') }}">Cancel</a>
+    </form>
+</body>
+</html>

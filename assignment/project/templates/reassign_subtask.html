@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Reassign Subtask</h1>
+    <form method="POST" action="{{ url_for('main.reassign_subtask', subtask_id=subtask.id, new_parent_id=subtask.parent.id) }}" class="form">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            <label class="label">Select New Parent Task:</label>
+            <div class="control">
+                <div class="select">
+                    <select name="new_parent_id">
+                        <option value="" disabled selected>Select New Parent</option>
+                        {% for parent_task in tasks_todo + tasks_done + tasks_in_progress %}
+                            {% if parent_task.id != subtask.parent.id %}
+                                <option value="{{ parent_task.id }}">{{ parent_task.title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Reassign</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

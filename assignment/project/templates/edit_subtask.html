@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edit Subtask</h1>
+    <form method="POST" action="{{ url_for('main.edit_subtask', subtask_id=subtask.id) }}" class="subtask-form">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ subtask.title }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Subtask</button>
+    </form>
+{% endblock %}

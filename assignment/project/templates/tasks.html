@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Tasks</h1>
+
+<!-- Display flash messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Form for adding tasks -->
+<form method="POST" action="{{ url_for('main.tasks') }}">
+    {{ form.hidden_tag() }}
+    <div class="field">
+        {{ form.title.label }} {{ form.title }}
+        {% if form.title.errors %}
+            <div class="alert alert-danger">
+                {{ form.title.errors[0] }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="field">
+        {{ form.status.label }} {{ form.status }}
+    </div>
+    <div class="field">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+<!-- Macro for recursive rendering of subtasks -->
+{% macro render_subtasks(task) %}
+    <ul>
+    {% for subtask in task.subtasks %}
+        <li class="subtask"> <!-- Add the "subtask" class here -->
+            {{ subtask.title }}
+            <!-- Task action links -->
+            <a href="{{ url_for('main.edit_task', task_id=subtask.id) }}">Edit</a>
+            <a href="{{ url_for('main.delete_task', task_id=subtask.id) }}">Delete</a>
+            <a href="{{ url_for('main.add_subtask', parent_id=subtask.id) }}">Add Subtask</a>
+            <form method="POST" action="{{ url_for('main.reassign_task', task_id=task.id) }}">
+                {{ form.hidden_tag() }}
+                <input type="hidden" name="task_id" value="{{ task.id }}">
+                <div class="select-parent">
+                    <input type="checkbox" id="reassign-toggle-{{ task.id }}" class="reassign-toggle">
+                    <label for="reassign-toggle-{{ task.id }}" class="reassign-toggle-label">Reassign Task</label>
+                    <div class="select-parent-list">
+                        <select name="new_parent_id">
+                            <option value="">Select New Parent</option>
+                            {% for potential_parent_task in all_tasks %}
+                                <option value="{{ potential_parent_task.id }}">{{ potential_parent_task.title }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="Reassign">
+                    </div>
+                </div>
+            </form>
+            <!-- Updated HTML for subtasks -->
+            {% if subtask.subtasks %}
+                <div class="subtask-container">
+                    <a href="#" class="toggle-subtasks">Show Subtasks</a> <!-- Show Subtasks Button -->
+                    <div class="subtasks">
+                        {{ render_subtasks(subtask) | safe }}
+                    </div>
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+<!-- Task categories display -->
+{% for category, tasks in tasks_by_category.items() %}
+    <div class="category">
+        <h2>{{ category }}</h2>
+        <div class="tasks">
+            {% for task in tasks %}
+                <div class="task">
+                    <h3>{{ task.title }}</h3>
+                    <!-- Task action links -->
+                    <a href="{{ url_for('main.edit_task', task_id=task.id) }}">Edit</a>
+                    <a href="{{ url_for('main.delete_task', task_id=task.id) }}">Delete</a>
+                    <a href="{{ url_for('main.add_subtask', parent_id=task.id) }}">Add Subtask</a>
+                    
+                    <!-- Show Subtasks Button -->
+                    <a href="#" class="toggle-subtasks">Show Subtasks</a>
+                    
+                    <form method="POST" action="{{ url_for('main.reassign_task', task_id=task.id) }}">
+                        {{ form.hidden_tag() }}
+                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                        <div class="select-parent">
+                            <input type="checkbox" id="reassign-toggle-{{ task.id }}" class="reassign-toggle">
+                            <label for="reassign-toggle-{{ task.id }}" class="reassign-toggle-label">Reassign Task</label>
+                            <div class="select-parent-list">
+                                <select name="new_parent_id">
+                                    <option value="">Select New Parent</option>
+                                    {% for potential_parent_task in all_tasks %}
+                                        <option value="{{ potential_parent_task.id }}">{{ potential_parent_task.title }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="submit" value="Reassign">
+                            </div>
+                        </div>
+                    </form>
+                    {% if task.subtasks %}
+                    <div class="subtask-container">
+                        <a href="#" class="toggle-subtasks toggle-subtasks-parent">Subtasks</a> <!-- Show Subtasks Button for Parent -->
+                        <div class="subtasks">
+                            {{ render_subtasks(task) | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+<!-- JavaScript to toggle reassignment list and subtasks -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleParentLinks = document.querySelectorAll(".reassign-toggle-label");
+        toggleParentLinks.forEach(function (label) {
+            label.addEventListener("click", function (event) {
+                event.preventDefault();
+                const selectParentList = this.parentElement.querySelector(".select-parent-list");
+                if (selectParentList) {
+                    selectParentList.style.display = selectParentList.style.display === "none" ? "block" : "none";
+                }
+            });
+        });
+
+        const toggleSubtasks = document.querySelectorAll(".toggle-subtasks");
+        toggleSubtasks.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const subtasks = this.parentElement.querySelector(".subtasks");
+                if (subtasks) {
+                    subtasks.style.display = subtasks.style.display === "none" ? "block" : "none";
+                }
+            });
+        });
+        
+        // Add event listener for the "Show Subtasks" button for parent tasks
+        const showSubtasksButtons = document.querySelectorAll(".toggle-subtasks-parent");
+        showSubtasksButtons.forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const subtasks = this.parentElement.querySelector(".subtasks");
+                if (subtasks) {
+                    subtasks.style.display = "none"; // Hide all subtasks
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

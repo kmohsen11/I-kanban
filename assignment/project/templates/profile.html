@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+    Welcome, {{ name }}! Ready for today?
+</h1>
+
+<!-- Informational section or direct display of tasks (if you prefer) -->
+<div class="content">
+    <p>What are you planning to work on today? Check your <a href="{{ url_for('main.tasks') }}">TASKS</a> and start being productive!</p>
+</div>
+
+
+{% endblock %}

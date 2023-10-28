@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="title">Edit Task</h1>
+
+<!-- Form for editing the task -->
+<form method="POST" action="{{ url_for('main.edit_task', task_id=task.id) }}" class="form">
+    {{ form.hidden_tag() }}  <!-- CSRF token -->
+    
+    <div class="field">
+        {{ form.title.label(class="label") }}
+        <div class="control">
+            {{ form.title(class="input", id="taskInput", placeholder="Enter updated task") }}
+            {% if form.title.errors %}
+                <p class="help is-danger">{{ form.title.errors[0] }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="field">
+        {{ form.status.label(class="label") }}
+        <div class="control">
+            {{ form.status(class="select", id="statusSelect") }}
+            {% if form.status.errors %}
+                <p class="help is-danger">{{ form.status.errors[0] }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            {{ form.submit(class="button is-primary") }}
+        </div>
+    </div>
+</form>
+
+<!-- Back to tasks link -->
+<a href="{{ url_for('main.tasks') }}">Back to Tasks</a>
+
+{% endblock %}

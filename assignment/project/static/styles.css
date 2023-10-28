@@ -1,0 +1,265 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* Style for the navbar */
+.navbar {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for the site name in the navbar */
+.site-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 20px;
+    color: #fff;
+}
+
+/* Style for navbar links */
+.navbar-item {
+    color: black;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+/* Style for the main content container */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+/* Style for flash messages */
+.alert {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    margin: 10px auto;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Style for form fields and labels */
+.field {
+    margin: 10px auto;
+    width: 100%;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style for buttons */
+.btn {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background-color: #1f8d3d;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #b02a37;
+}
+
+/* Style for task categories */
+.category {
+    margin: 20px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.category h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style for individual tasks */
+.task {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Style for task titles */
+.task h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Style for task action links */
+.task a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Style for subtasks */
+.subtask {
+    list-style-type: none;
+    margin-left: 20px;
+    padding: 5px;
+    background-color: #f9f9f9; /* Background color for subtasks */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* Style for subtask titles */
+.subtask h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333; /* Text color for subtask titles */
+}
+
+/* Style for subtask action links */
+.subtask a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff; /* Link color for subtask action links */
+    font-weight: bold;
+}
+
+
+/* Style for the copyright section */
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    background-color: #333; /* Background color */
+    color: #fff; /* Text color */
+    padding: 5px; /* Padding for spacing */
+}
+
+/* CSS to hide the reassignment list by default */
+.select-parent-list {
+    display: none;
+}
+
+/* CSS for subtask boxes */
+.subtask-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 5px;
+}
+/* CSS for subtask boxes */
+.subtask-container{
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+/* Add a class to the link for toggling the reassignment list */
+.toggle-parent-list {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+/* Hide subtasks by default */
+.subtasks {
+    display: none;
+}
+
+/* CSS to hide the reassignment list and subtasks by default */
+.select-parent-list {
+    display: none;
+}
+
+.subtasks {
+    display: none;
+}
+
+/* Add styles for the toggle label */
+.reassign-toggle-label {
+    cursor: pointer;
+    color: goldenrod;
+    text-decoration: underline;
+}
+/* Center elements with the "title" and "subtitle" classes */
+.title,
+.subtitle {
+    text-align: center; /* Center the text horizontally */
+    margin-top: 20vh; /* Center the text vertically using viewport height units */
+}
+.title {
+    font-size: 36px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for elements with the "subtitle" class */
+.subtitle {
+    font-size: 24px; /* Adjust the font size as needed */
+}
+/* Increase font size for elements with the "content" class */
+.content {
+    font-size: 18px; /* Adjust the font size as needed */
+}

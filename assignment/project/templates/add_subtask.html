@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="title">Add Subtask</h1>
+
+<!-- Form for adding a subtask -->
+<form method="POST" action="{{ url_for('main.add_subtask', parent_id=parent_task.id) }}" class="form">
+    {{ form.hidden_tag() }}  <!-- CSRF token -->
+    
+    <div class="field">
+        {{ form.title.label(class="label") }}
+        <div class="control">
+            {{ form.title(class="input", id="taskInput", placeholder="Enter subtask") }}
+            {% if form.title.errors %}
+                <p class="help is-danger">{{ form.title.errors[0] }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Remove the status field for subtasks -->
+    
+    <div class="field">
+        <div class="control">
+            {{ form.submit(class="button is-primary") }}
+        </div>
+    </div>
+</form>
+
+<!-- Back to tasks link -->
+<a href="{{ url_for('main.tasks') }}">Back to Tasks</a>
+
+{% endblock %}
